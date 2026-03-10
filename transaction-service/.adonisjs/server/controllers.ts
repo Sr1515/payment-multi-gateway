@@ -9,4 +9,5 @@ export const controllers = {
   Products: () => import('#controllers/products_controller'),
   Users: () => import('#controllers/users_controller'),
   Gateway: () => import('#controllers/gateway_controller'),
+  Clients: () => import('#controllers/clients_controller'),
 }

@@ -55,5 +55,7 @@ router
           .use(middleware.role({ roles: ['ADMIN'] }))
       })
       .use(middleware.auth())
+
+    // --- CLIENTS ---
   })
   .prefix('/api/v1')
