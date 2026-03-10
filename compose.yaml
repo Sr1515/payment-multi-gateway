@@ -1,0 +1,29 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: payment-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  transaction-service:
+    build: ./transaction-service
+    container_name: transaction-service
+    ports:
+      - "3000:3333"
+    volumes:
+      - ./transaction-service:/app
+      - /app/node_modules
+    depends_on:
+      - mysql
+    env_file:
+      - ./transaction-service/.env
+    command: node ace serve --watch
+
+volumes:
+  mysql_data:
