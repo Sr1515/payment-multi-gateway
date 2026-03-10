@@ -1,15 +1,14 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Gateway from '#models/gateway'
-import { gatewayValidator } from '#validators/gateway'
 import vine from '@vinejs/vine'
 
 export default class GatewaysController {
-  async activate({ params, request, response }: HttpContext) {
+  async activate({ params, response }: HttpContext) {
     const gateway = await Gateway.findOrFail(params.id)
-    const data = await request.validateUsing(gatewayValidator)
+    gateway.is_activate = true
+    await gateway.save()
 
-    gateway.merge({ ...data, is_activate: true }).save()
-    return response.ok(gateway)
+    return response.ok({ message: `Gateway ${gateway.name} activated` })
   }
 
   async deactivate({ params, response }: HttpContext) {
@@ -17,7 +16,7 @@ export default class GatewaysController {
     gateway.is_activate = false
     await gateway.save()
 
-    return response.ok({ message: `Gateway ${gateway.name} desativado` })
+    return response.ok({ message: `Gateway ${gateway.name} deactivated` })
   }
 
   async changePriority({ params, request, response }: HttpContext) {
@@ -29,6 +28,6 @@ export default class GatewaysController {
     gateway.priority = priority
     await gateway.save()
 
-    return response.ok(gateway)
+    return response.ok({ message: `Gateway ${gateway.name} priority changed` })
   }
 }

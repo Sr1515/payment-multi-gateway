@@ -227,12 +227,12 @@ export interface Registry {
     methods: ["PATCH"]
     pattern: '/api/v1/gateways/:id/activate'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/gateway').gatewayValidator)>>
+      body: {}
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/gateway').gatewayValidator)>>
+      query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/gateway_controller').default['activate']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/gateway_controller').default['activate']>>> | { status: 422; response: { errors: SimpleError[] } }
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/gateway_controller').default['activate']>>>
     }
   }
   'gateways.deactivate': {
