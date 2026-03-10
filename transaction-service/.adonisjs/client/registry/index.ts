@@ -6,23 +6,23 @@ import type { ApiDefinition } from './tree.d.ts'
 const placeholder: any = {}
 
 const routes = {
-  'auth.new_account.store': {
+  'new_account.store': {
     methods: ["POST"],
     pattern: '/api/v1/auth/signup',
     tokens: [{"old":"/api/v1/auth/signup","type":0,"val":"api","end":""},{"old":"/api/v1/auth/signup","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/signup","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/signup","type":0,"val":"signup","end":""}],
-    types: placeholder as Registry['auth.new_account.store']['types'],
+    types: placeholder as Registry['new_account.store']['types'],
   },
-  'auth.access_token.store': {
+  'access_token.store': {
     methods: ["POST"],
     pattern: '/api/v1/auth/login',
     tokens: [{"old":"/api/v1/auth/login","type":0,"val":"api","end":""},{"old":"/api/v1/auth/login","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/login","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/login","type":0,"val":"login","end":""}],
-    types: placeholder as Registry['auth.access_token.store']['types'],
+    types: placeholder as Registry['access_token.store']['types'],
   },
-  'auth.access_token.destroy': {
+  'access_token.destroy': {
     methods: ["POST"],
     pattern: '/api/v1/auth/logout',
     tokens: [{"old":"/api/v1/auth/logout","type":0,"val":"api","end":""},{"old":"/api/v1/auth/logout","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/logout","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/logout","type":0,"val":"logout","end":""}],
-    types: placeholder as Registry['auth.access_token.destroy']['types'],
+    types: placeholder as Registry['access_token.destroy']['types'],
   },
   'products.index': {
     methods: ["GET","HEAD"],
@@ -83,6 +83,54 @@ const routes = {
     pattern: '/api/v1/users/:id',
     tokens: [{"old":"/api/v1/users/:id","type":0,"val":"api","end":""},{"old":"/api/v1/users/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/users/:id","type":0,"val":"users","end":""},{"old":"/api/v1/users/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['users.destroy']['types'],
+  },
+  'gateways.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/gateways',
+    tokens: [{"old":"/api/v1/gateways","type":0,"val":"api","end":""},{"old":"/api/v1/gateways","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways","type":0,"val":"gateways","end":""}],
+    types: placeholder as Registry['gateways.index']['types'],
+  },
+  'gateways.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/gateways',
+    tokens: [{"old":"/api/v1/gateways","type":0,"val":"api","end":""},{"old":"/api/v1/gateways","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways","type":0,"val":"gateways","end":""}],
+    types: placeholder as Registry['gateways.store']['types'],
+  },
+  'gateways.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/gateways/:id',
+    tokens: [{"old":"/api/v1/gateways/:id","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/:id","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['gateways.show']['types'],
+  },
+  'gateways.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/api/v1/gateways/:id',
+    tokens: [{"old":"/api/v1/gateways/:id","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/:id","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['gateways.update']['types'],
+  },
+  'gateways.destroy': {
+    methods: ["DELETE"],
+    pattern: '/api/v1/gateways/:id',
+    tokens: [{"old":"/api/v1/gateways/:id","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/:id","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['gateways.destroy']['types'],
+  },
+  'gateways.activate': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/gateways/:id/activate',
+    tokens: [{"old":"/api/v1/gateways/:id/activate","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/:id/activate","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/:id/activate","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/:id/activate","type":1,"val":"id","end":""},{"old":"/api/v1/gateways/:id/activate","type":0,"val":"activate","end":""}],
+    types: placeholder as Registry['gateways.activate']['types'],
+  },
+  'gateways.deactivate': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/gateways/:id/deactivate',
+    tokens: [{"old":"/api/v1/gateways/:id/deactivate","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/:id/deactivate","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/:id/deactivate","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/:id/deactivate","type":1,"val":"id","end":""},{"old":"/api/v1/gateways/:id/deactivate","type":0,"val":"deactivate","end":""}],
+    types: placeholder as Registry['gateways.deactivate']['types'],
+  },
+  'gateways.change_priority': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/gateways/:id/priority',
+    tokens: [{"old":"/api/v1/gateways/:id/priority","type":0,"val":"api","end":""},{"old":"/api/v1/gateways/:id/priority","type":0,"val":"v1","end":""},{"old":"/api/v1/gateways/:id/priority","type":0,"val":"gateways","end":""},{"old":"/api/v1/gateways/:id/priority","type":1,"val":"id","end":""},{"old":"/api/v1/gateways/:id/priority","type":0,"val":"priority","end":""}],
+    types: placeholder as Registry['gateways.change_priority']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>
 

@@ -1,26 +1,24 @@
 import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
-import { controllers } from '#generated/controllers'
-import ProductsController from '#controllers/products_controller'
-import UserController from '#controllers/users_controller'
 
-router.get('/', () => {
-  return { hello: 'world' }
-})
+const NewAccountController = () => import('#controllers/new_account_controller')
+const AccessTokenController = () => import('#controllers/access_token_controller')
+const ProductsController = () => import('#controllers/products_controller')
+const UsersController = () => import('#controllers/users_controller')
+const GatewaysController = () => import('#controllers/gateway_controller')
 
 router
   .group(() => {
-    // AUTH
+    // --- AUTH ---
     router
       .group(() => {
-        router.post('signup', [controllers.NewAccount, 'store'])
-        router.post('login', [controllers.AccessToken, 'store'])
-        router.post('logout', [controllers.AccessToken, 'destroy']).use(middleware.auth())
+        router.post('signup', [NewAccountController, 'store'])
+        router.post('login', [AccessTokenController, 'store'])
+        router.post('logout', [AccessTokenController, 'destroy']).use(middleware.auth())
       })
       .prefix('auth')
-      .as('auth')
 
-    // PRODUCTS
+    // --- PRODUCTS ---
     router
       .group(() => {
         router
@@ -33,15 +31,29 @@ router
       })
       .use(middleware.auth())
 
-    // USERS
-    router.group(() => {
-      router
-        .resource('users', UserController)
-        .apiOnly()
-        .use(
-          ['update', 'destroy', 'index', 'show'],
-          middleware.role({ roles: ['ADMIN', 'MANAGER'] })
-        )
-    })
+    // --- USERS ---
+    router
+      .group(() => {
+        router
+          .resource('users', UsersController)
+          .apiOnly()
+          .use('*', middleware.role({ roles: ['ADMIN', 'MANAGER'] }))
+      })
+      .use(middleware.auth())
+
+    // --- GATEWAYS ---
+    router
+      .group(() => {
+        router.resource('gateways', GatewaysController).apiOnly()
+
+        router
+          .group(() => {
+            router.patch('gateways/:id/activate', [GatewaysController, 'activate'])
+            router.patch('gateways/:id/deactivate', [GatewaysController, 'deactivate'])
+            router.patch('gateways/:id/priority', [GatewaysController, 'changePriority'])
+          })
+          .use(middleware.role({ roles: ['ADMIN'] }))
+      })
+      .use(middleware.auth())
   })
   .prefix('/api/v1')
