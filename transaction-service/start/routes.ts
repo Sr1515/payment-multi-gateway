@@ -1,3 +1,5 @@
+import ClientController from '#controllers/clients_controller'
+import TransactionController from '#controllers/transactions_controller'
 import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
@@ -31,7 +33,7 @@ router
       })
       .use(middleware.auth())
 
-    // --- USERS ---
+    // --- USERS * index and show must be public routes---
     router
       .group(() => {
         router
@@ -57,5 +59,23 @@ router
       .use(middleware.auth())
 
     // --- CLIENTS ---
+    router
+      .group(() => {
+        router
+          .resource('clients', ClientController)
+          .apiOnly()
+          .use('*', middleware.role({ roles: ['ADMIN', 'MANAGER'] }))
+      })
+      .use(middleware.auth())
+
+    // TRANSACTION
+    router
+      .group(() => {
+        router
+          .resource('transactions', TransactionController)
+          .apiOnly()
+          .use('*', middleware.role({ roles: ['ADMIN', 'FINANCE'] }))
+      })
+      .use(middleware.auth())
   })
   .prefix('/api/v1')

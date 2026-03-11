@@ -1,7 +1,7 @@
 import Client from '#models/clients'
 import type { HttpContext } from '@adonisjs/core/http'
 
-export default class ProductsController {
+export default class ClientController {
   async index() {
     return await Client.all()
   }
