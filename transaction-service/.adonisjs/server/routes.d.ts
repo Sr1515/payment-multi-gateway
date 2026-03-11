@@ -25,6 +25,16 @@ export type ScannedRoutes = {
     'gateways.activate': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.deactivate': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.change_priority': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'clients.index': { paramsTuple?: []; params?: {} }
+    'clients.store': { paramsTuple?: []; params?: {} }
+    'clients.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'clients.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'clients.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transactions.index': { paramsTuple?: []; params?: {} }
+    'transactions.store': { paramsTuple?: []; params?: {} }
+    'transactions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transactions.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transactions.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   POST: {
     'new_account.store': { paramsTuple?: []; params?: {} }
@@ -33,6 +43,8 @@ export type ScannedRoutes = {
     'products.store': { paramsTuple?: []; params?: {} }
     'users.store': { paramsTuple?: []; params?: {} }
     'gateways.store': { paramsTuple?: []; params?: {} }
+    'clients.store': { paramsTuple?: []; params?: {} }
+    'transactions.store': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'products.index': { paramsTuple?: []; params?: {} }
@@ -41,6 +53,10 @@ export type ScannedRoutes = {
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.index': { paramsTuple?: []; params?: {} }
     'gateways.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'clients.index': { paramsTuple?: []; params?: {} }
+    'clients.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transactions.index': { paramsTuple?: []; params?: {} }
+    'transactions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   HEAD: {
     'products.index': { paramsTuple?: []; params?: {} }
@@ -49,11 +65,17 @@ export type ScannedRoutes = {
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.index': { paramsTuple?: []; params?: {} }
     'gateways.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'clients.index': { paramsTuple?: []; params?: {} }
+    'clients.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transactions.index': { paramsTuple?: []; params?: {} }
+    'transactions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PUT: {
     'products.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'clients.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transactions.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
     'products.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -62,11 +84,15 @@ export type ScannedRoutes = {
     'gateways.activate': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.deactivate': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.change_priority': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'clients.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transactions.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
     'products.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'users.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'clients.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transactions.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

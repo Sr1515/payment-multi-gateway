@@ -1,3 +1,4 @@
+import { log } from 'console'
 import { PaymentGateway } from '../types/paymentType.ts'
 
 export class PaymentGatewayA implements PaymentGateway {
@@ -6,6 +7,8 @@ export class PaymentGatewayA implements PaymentGateway {
   async processPayment(data: any) {
     console.log(`Pagamento realizado ${data}`)
   }
+
+  async refund(transactionId: string): Promise<any> {}
 }
 
 export class PaymentGatewayB implements PaymentGateway {
@@ -14,6 +17,8 @@ export class PaymentGatewayB implements PaymentGateway {
   async processPayment(data: any) {
     console.log(`Pagamento realizado ${data}`)
   }
+
+  async refund(transactionId: string): Promise<any> {}
 }
 
 export const gatewayRegistry: Record<string, new () => PaymentGateway> = {

@@ -33,4 +33,18 @@ export interface ApiDefinition {
     deactivate: typeof routes['gateways.deactivate']
     changePriority: typeof routes['gateways.change_priority']
   }
+  clients: {
+    index: typeof routes['clients.index']
+    store: typeof routes['clients.store']
+    show: typeof routes['clients.show']
+    update: typeof routes['clients.update']
+    destroy: typeof routes['clients.destroy']
+  }
+  transactions: {
+    index: typeof routes['transactions.index']
+    store: typeof routes['transactions.store']
+    show: typeof routes['transactions.show']
+    update: typeof routes['transactions.update']
+    destroy: typeof routes['transactions.destroy']
+  }
 }
