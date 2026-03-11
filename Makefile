@@ -5,7 +5,7 @@ build:
 	docker compose build
 
 run: 
-	docker compose up -d
+	docker compose up -d 
 
 run-logs:
 	docker compose up
@@ -21,3 +21,6 @@ log-transaction-service:
 
 migrations: 
 	docker compose exec transaction-service node ace migration:run
+
+tests:
+	docker exec -it transaction-service  node ace test

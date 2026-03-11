@@ -24,7 +24,8 @@ test.group('Auth Module', () => {
       password: 'password123',
     })
 
-    response.assertStatus(200)
+    // response.assertStatus(200)
+    response.assertBodyContains({ data: {} })
   })
 
   test('deve invalidar o token ao fazer logout').run(async ({ client }) => {

@@ -4,12 +4,24 @@ services:
     container_name: payment-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: payment_db
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_dev_data:/var/lib/mysql
+
+  mysql-tests:
+    image: mysql:8
+    container_name: payment-mysql-tests
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: payment_db_test
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_test_data:/var/lib/mysql
 
   transaction-service:
     build: ./transaction-service
@@ -26,4 +38,5 @@ services:
     command: node ace serve --watch
 
 volumes:
-  mysql_data:
+  mysql_dev_data:
+  mysql_test_data:

@@ -6,11 +6,6 @@ import { pluginAdonisJS } from '@japa/plugin-adonisjs'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { authApiClient } from '@adonisjs/auth/plugins/api_client'
 import { sessionApiClient } from '@adonisjs/session/plugins/api_client'
-import type { Registry } from '../.adonisjs/client/registry/schema.d.ts'
-
-declare module '@japa/api-client/types' {
-  interface RoutesRegistry extends Registry {}
-}
 
 export const plugins: Config['plugins'] = [
   assert(),
@@ -26,8 +21,19 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
 }
 
 export const configureSuite: Config['configureSuite'] = (suite) => {
-  if (['functional', 'e2e'].includes(suite.name)) {
+  if (['functional', 'e2e', 'unit'].includes(suite.name)) {
+    // Inicia o servidor HTTP para testes
     suite.setup(() => testUtils.httpServer().start())
-    suite.setup(() => testUtils.db().migrate())
+
+    suite.setup(async () => {
+      console.log(
+        `\x1b[34m[Test Setup]\x1b[0m Usando Banco: ${process.env.DB_DATABASE} na porta ${process.env.DB_PORT}`
+      )
+      await testUtils.db().migrate()
+    })
+
+    suite.onGroup((group) => {
+      group.each.setup(() => testUtils.db().withGlobalTransaction())
+    })
   }
 }

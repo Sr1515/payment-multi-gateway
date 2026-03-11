@@ -6,6 +6,9 @@ tmp/*
 
 # Secrets
 .env
+!.env.example
+!.env.test.example
+.env.test
 .env.local
 .env.production.local
 .env.development.local
