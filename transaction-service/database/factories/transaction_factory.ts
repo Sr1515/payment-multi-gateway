@@ -6,7 +6,7 @@ import { GatewayFactory } from './gateway_factory.ts'
 export const TransactionFactory = factory
   .define(Transaction, async ({ faker }) => {
     return {
-      status: 'pending' as const,
+      status: 'approved' as const,
       amount: faker.number.int({ min: 1000, max: 50000 }),
       externalId: faker.string.uuid(),
       cardLastNumbers: '4444',

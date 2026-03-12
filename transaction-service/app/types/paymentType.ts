@@ -1,4 +1,4 @@
-export interface CreateTransactionDTO {
+export interface ExternalPaymentRequestDTO {
   amount: number
   name: string
   email: string
@@ -9,7 +9,7 @@ export interface CreateTransactionDTO {
 export interface PaymentGateway {
   name: string
 
-  processPayment(data: CreateTransactionDTO): Promise<any>
+  processPayment(data: ExternalPaymentRequestDTO): Promise<any>
 
   refund(transactionId: string): Promise<any>
 }

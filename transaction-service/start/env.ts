@@ -18,4 +18,8 @@ export default await Env.create(new URL('../', import.meta.url), {
   DB_USER: Env.schema.string.optional(),
   DB_PASSWORD: Env.schema.string.optional(),
   DB_DATABASE: Env.schema.string.optional(),
+
+  // GATEWAYS
+  GATEWAY_A: Env.schema.string(),
+  GATEWAY_B: Env.schema.string(),
 })

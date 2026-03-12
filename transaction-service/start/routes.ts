@@ -11,7 +11,7 @@ const TransactionController = () => import('#controllers/transactions_controller
 
 router
   .group(() => {
-    // --- AUTH ---
+    // --- AUTH ROUTES---
     router
       .group(() => {
         router.post('signup', [NewAccountController, 'store'])
@@ -20,7 +20,7 @@ router
       })
       .prefix('auth')
 
-    // --- PRODUCTS ---
+    // --- PRODUCTS ROUTES---
     router
       .group(() => {
         router
@@ -33,7 +33,7 @@ router
       })
       .use(middleware.auth())
 
-    // --- USERS * index and show must be public routes---
+    // --- USERS ROUTES ---
     router
       .group(() => {
         router
@@ -43,7 +43,7 @@ router
       })
       .use(middleware.auth())
 
-    // --- GATEWAYS ---
+    // --- GATEWAYS ROUTES ---
     router
       .group(() => {
         router
@@ -61,7 +61,7 @@ router
       })
       .use(middleware.auth())
 
-    // --- CLIENTS ---
+    // --- CLIENTS ROUTES ---
     router
       .group(() => {
         router
@@ -71,10 +71,9 @@ router
       })
       .use(middleware.auth())
 
-    // rota pública
+    // --- TRANSACTIONS ROUTES ---
     router.post('/transactions', [TransactionController, 'store'])
 
-    // rotas protegidas
     router
       .group(() => {
         router

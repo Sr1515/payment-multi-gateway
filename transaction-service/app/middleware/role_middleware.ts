@@ -7,11 +7,11 @@ export default class RoleMiddleware {
     const user = auth.user
 
     if (!user) {
-      return response.unauthorized({ message: 'Usuário não autenticado' })
+      return response.unauthorized({ message: 'Unauthenticated user' })
     }
 
     if (!args.roles.includes(user.role)) {
-      return response.forbidden({ message: 'Você não tem permissão' })
+      return response.forbidden({ message: 'You are not allowed.' })
     }
 
     return await next()

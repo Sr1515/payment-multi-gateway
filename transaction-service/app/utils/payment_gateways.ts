@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { CreateTransactionDTO, PaymentGateway } from '../types/paymentType.ts'
+import { ExternalPaymentRequestDTO, PaymentGateway } from '../types/paymentType.ts'
+import env from '#start/env'
 
 export class PaymentGatewayA implements PaymentGateway {
   name = 'GatewayA'
 
-  // alterar para usar acesso Env
-  private baseUrl = 'http://localhost:3001'
+  private baseUrl = env.get('GATEWAY_A', 'http://localhost:3001')
   private token: string | null = null
 
   private async authenticate() {
@@ -20,7 +20,7 @@ export class PaymentGatewayA implements PaymentGateway {
     return this.token
   }
 
-  async processPayment(data: CreateTransactionDTO): Promise<any> {
+  async processPayment(data: ExternalPaymentRequestDTO): Promise<any> {
     const token = await this.authenticate()
 
     const response = await axios.post(
@@ -62,16 +62,16 @@ export class PaymentGatewayA implements PaymentGateway {
 export class PaymentGatewayB implements PaymentGateway {
   name = 'GatewayB'
 
-  private baseURL = 'http://localhost:3002'
+  private baseUrl = env.get('GATEWAY_B', 'http://localhost:3002')
 
   private headers = {
     'Gateway-Auth-Token': 'tk_f2198cc671b5289fa856',
     'Gateway-Auth-Secret': '3d15e8ed6131446ea7e3456728b1211f',
   }
 
-  async processPayment(data: CreateTransactionDTO): Promise<any> {
+  async processPayment(data: ExternalPaymentRequestDTO): Promise<any> {
     const response = await axios.post(
-      `${this.baseURL}/transacoes`,
+      `${this.baseUrl}/transacoes`,
       {
         valor: data.amount,
         nome: data.name,
@@ -89,7 +89,7 @@ export class PaymentGatewayB implements PaymentGateway {
 
   async refund(transactionId: string) {
     const response = await axios.post(
-      `${this.baseURL}/transacoes/reembolso`,
+      `${this.baseUrl}/transacoes/reembolso`,
       {
         id: transactionId,
       },
