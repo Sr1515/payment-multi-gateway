@@ -22,8 +22,8 @@ export default class TransactionController {
       'cvv',
     ])
 
-    const clientIdVerified = await uuidValidator.validate(clientId)
-    const client = await Client.findOrFail(clientIdVerified)
+    const { id: validatedClientId } = await uuidValidator.validate({ id: clientId })
+    const client = await Client.findOrFail(validatedClientId)
     const cardLastNumbers = cardNumber.slice(-4)
 
     let total = 0
@@ -36,6 +36,12 @@ export default class TransactionController {
     }
 
     const gateways = await GatewayFactory.getGateways()
+
+    if (gateways.length === 0) {
+      return response.serviceUnavailable({
+        message: 'No Gateways Available in moment',
+      })
+    }
 
     for (const gatewayItem of gateways) {
       const { instance: gateway, config } = gatewayItem
@@ -65,8 +71,11 @@ export default class TransactionController {
       }
     }
 
+    const fallbackGatewayId = gateways.length > 0 ? gateways[0].config.id : undefined
+
     const failedTransaction = await Transaction.create({
       clientId: client.id,
+      gatewayId: fallbackGatewayId,
       amount: total,
       status: 'refunded',
       cardLastNumbers: cardLastNumbers,

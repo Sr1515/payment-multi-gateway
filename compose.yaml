@@ -23,6 +23,13 @@ services:
     volumes:
       - mysql_test_data:/var/lib/mysql
 
+  gateways-mock:
+    image: matheusprotzen/gateways-mock
+    container_name: gateways-mock
+    ports:
+      - "3001:3001"
+      - "3002:3002"
+
   transaction-service:
     build: ./transaction-service
     container_name: transaction-service
@@ -33,6 +40,7 @@ services:
       - /app/node_modules
     depends_on:
       - mysql
+      - gateways-mock
     env_file:
       - ./transaction-service/.env
     command: node ace serve --watch

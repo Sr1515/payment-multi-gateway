@@ -103,6 +103,6 @@ export class PaymentGatewayB implements PaymentGateway {
 }
 
 export const gatewayRegistry: Record<string, new () => PaymentGateway> = {
-  gatewayA: PaymentGatewayA,
-  gatewayB: PaymentGatewayB,
+  GatewayA: PaymentGatewayA,
+  GatewayB: PaymentGatewayB,
 }

@@ -85,7 +85,7 @@ export class TransactionProductSchema extends BaseModel {
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column({ isPrimary: true })
-  declare id: string
+  declare id: number
   @column()
   declare productId: string
   @column()

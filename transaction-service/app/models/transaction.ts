@@ -52,6 +52,7 @@ export default class Transaction extends BaseModel {
     pivotForeignKey: 'transaction_id',
     pivotRelatedForeignKey: 'product_id',
     pivotColumns: ['quantity'],
+    pivotTimestamps: true,
   })
   declare products: ManyToMany<typeof Product>
 }
