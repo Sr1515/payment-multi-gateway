@@ -16,9 +16,11 @@ export default class UserController {
   async update({ params, request }: HttpContext) {
     const { id } = await uuidValidator.validate(params)
     const user = await User.findOrFail(id)
-    const data = await request.validateUsing(signupValidator)
 
-    user.merge(data).save()
+    const data = await request.validateUsing(signupValidator)
+    const { passwordConfirmation, ...userData } = data
+    await user.merge(userData).save()
+
     return user
   }
 
