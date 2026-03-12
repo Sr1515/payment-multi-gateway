@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Gateway from '#models/gateway'
-import vine from '@vinejs/vine'
-import { gatewayValidator } from '#validators/gateway'
+import { gatewayValidator, priorityGatewayValidator } from '#validators/gateway'
+import { uuidValidator } from '#validators/uuid'
 
 export default class GatewaysController {
   async store({ request, response }: HttpContext) {
@@ -11,7 +11,8 @@ export default class GatewaysController {
   }
 
   async activate({ params, response }: HttpContext) {
-    const gateway = await Gateway.findOrFail(params.id)
+    const { id } = await uuidValidator.validate(params)
+    const gateway = await Gateway.findOrFail(id)
     gateway.is_activate = true
     await gateway.save()
 
@@ -19,7 +20,8 @@ export default class GatewaysController {
   }
 
   async deactivate({ params, response }: HttpContext) {
-    const gateway = await Gateway.findOrFail(params.id)
+    const { id } = await uuidValidator.validate(params)
+    const gateway = await Gateway.findOrFail(id)
     gateway.is_activate = false
     await gateway.save()
 
@@ -27,11 +29,11 @@ export default class GatewaysController {
   }
 
   async changePriority({ params, request, response }: HttpContext) {
-    const { priority } = await request.validateUsing(
-      vine.create(vine.object({ priority: vine.number().min(1) }))
-    )
+    const { priority } = await request.validateUsing(priorityGatewayValidator)
+    const { id } = await uuidValidator.validate(params)
 
-    const gateway = await Gateway.findOrFail(params.id)
+    const gateway = await Gateway.findOrFail(id)
+
     gateway.priority = priority
     await gateway.save()
 

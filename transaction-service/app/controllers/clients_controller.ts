@@ -7,6 +7,7 @@ export default class ClientController {
     return await Client.all()
   }
 
+  // vine pra validar uuid
   async show({ params }: HttpContext) {
     const client = await Client.query()
       .where('id', params.id)

@@ -3,13 +3,15 @@ import { GatewayFactory } from '../utils/gateways_factory.ts'
 import Product from '#models/product'
 import Transaction from '#models/transaction'
 import Client from '#models/client'
+import { uuidValidator } from '#validators/uuid'
 export default class TransactionController {
   async index() {
     return await Transaction.all()
   }
 
   async show({ params }: HttpContext) {
-    return await Transaction.findOrFail(params.id)
+    const { id } = await uuidValidator.validate(params)
+    return await Transaction.findOrFail(id)
   }
 
   async store({ request, response }: HttpContext) {
@@ -20,7 +22,8 @@ export default class TransactionController {
       'cvv',
     ])
 
-    const client = await Client.findOrFail(clientId)
+    const clientIdVerified = await uuidValidator.validate(clientId)
+    const client = await Client.findOrFail(clientIdVerified)
     const cardLastNumbers = cardNumber.slice(-4)
 
     let total = 0
@@ -29,7 +32,6 @@ export default class TransactionController {
     for (const item of products) {
       const product = await Product.findOrFail(item.id)
       total += Number(product.amount) * item.quantity
-
       pivotData[item.id] = { quantity: item.quantity }
     }
 
@@ -59,7 +61,7 @@ export default class TransactionController {
         await transaction.related('products').attach(pivotData)
         return response.created(transaction)
       } catch (error) {
-        console.error(`Gateway ${config.name} falhou:`, error.message)
+        console.error(`Gateway ${config.name} fail:`, error.message)
       }
     }
 
@@ -72,6 +74,6 @@ export default class TransactionController {
 
     await failedTransaction.related('products').attach(pivotData)
 
-    return response.badRequest({ message: 'Todos os gateways falharam' })
+    return response.badRequest({ message: 'All gateways failed' })
   }
 }
