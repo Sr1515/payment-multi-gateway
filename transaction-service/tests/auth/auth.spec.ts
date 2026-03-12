@@ -27,6 +27,20 @@ test.group('Auth Module', () => {
     response.assertBodyContains({ data: {} })
   })
 
+  test('deve falhar se as credeciais estiverem erradas').run(async ({ client }) => {
+    await UserFactory.merge({
+      email: 'login@test.com',
+      password: 'password123',
+    }).create()
+
+    const response = await client.post('/api/v1/auth/login').json({
+      email: 'login@test.com',
+      password: 'password12356',
+    })
+
+    response.assertStatus(400)
+  })
+
   test('deve invalidar o token ao fazer logout').run(async ({ client }) => {
     const user = await UserFactory.create()
     const response = await client.post('/api/v1/auth/logout').loginAs(user)
