@@ -30,8 +30,8 @@ export type ScannedRoutes = {
     'clients.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'clients.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'clients.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transaction.store': { paramsTuple?: []; params?: {} }
     'transactions.index': { paramsTuple?: []; params?: {} }
-    'transactions.store': { paramsTuple?: []; params?: {} }
     'transactions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'transactions.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'transactions.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -44,7 +44,7 @@ export type ScannedRoutes = {
     'users.store': { paramsTuple?: []; params?: {} }
     'gateways.store': { paramsTuple?: []; params?: {} }
     'clients.store': { paramsTuple?: []; params?: {} }
-    'transactions.store': { paramsTuple?: []; params?: {} }
+    'transaction.store': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'products.index': { paramsTuple?: []; params?: {} }

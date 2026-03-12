@@ -9,12 +9,11 @@ export default class extends BaseSchema {
 
       table.uuid('client_id').notNullable()
       table.uuid('gateway_id').notNullable()
-
       table.string('external_id')
 
-      table.enum('status', ['approved', 'failed', 'refunded'])
+      table.enum('status', ['approved', 'refunded'])
 
-      table.decimal('amount', 10, 2).notNullable()
+      table.decimal('amount', 14, 2).notNullable()
       table.string('card_last_numbers', 4)
 
       table.timestamp('created_at')

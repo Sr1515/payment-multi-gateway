@@ -1,5 +1,4 @@
 import ClientController from '#controllers/clients_controller'
-import TransactionController from '#controllers/transactions_controller'
 import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
@@ -8,6 +7,7 @@ const AccessTokenController = () => import('#controllers/access_token_controller
 const ProductsController = () => import('#controllers/products_controller')
 const UsersController = () => import('#controllers/users_controller')
 const GatewaysController = () => import('#controllers/gateway_controller')
+const TransactionController = () => import('#controllers/transactions_controller')
 
 router
   .group(() => {
@@ -46,7 +46,10 @@ router
     // --- GATEWAYS ---
     router
       .group(() => {
-        router.resource('gateways', GatewaysController).apiOnly()
+        router
+          .resource('gateways', GatewaysController)
+          .apiOnly()
+          .use(['store', 'update', 'destroy'], middleware.role({ roles: ['ADMIN'] }))
 
         router
           .group(() => {
@@ -68,12 +71,16 @@ router
       })
       .use(middleware.auth())
 
-    // TRANSACTION
+    // rota pública
+    router.post('/transactions', [TransactionController, 'store'])
+
+    // rotas protegidas
     router
       .group(() => {
         router
           .resource('transactions', TransactionController)
           .apiOnly()
+          .except(['store'])
           .use('*', middleware.role({ roles: ['ADMIN', 'FINANCE'] }))
       })
       .use(middleware.auth())

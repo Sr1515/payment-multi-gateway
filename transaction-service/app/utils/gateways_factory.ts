@@ -3,7 +3,7 @@ import { gatewayRegistry } from './payment_gateways.ts'
 
 export class GatewayFactory {
   static async getGateways() {
-    const configs = await Gateway.query().where('active', true).orderBy('priority', 'asc')
+    const configs = await Gateway.query().where('is_activate', true).orderBy('priority', 'asc')
 
     const gateways = []
 
@@ -11,7 +11,10 @@ export class GatewayFactory {
       const GatewayClass = gatewayRegistry[config.name]
 
       if (GatewayClass) {
-        gateways.push(new GatewayClass())
+        gateways.push({
+          instance: new GatewayClass(),
+          config,
+        })
       }
     }
 

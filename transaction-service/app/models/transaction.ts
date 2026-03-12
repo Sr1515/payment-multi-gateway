@@ -2,30 +2,30 @@ import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
 import { BaseModel, column, belongsTo, manyToMany, beforeCreate } from '@adonisjs/lucid/orm'
 import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
-import Product from './product.ts'
-import Gateway from './gateway.ts'
-import Client from './clients.ts'
+import Product from './product.js' // Dica: use .js em vez de .ts nos imports internos
+import Gateway from './gateway.js'
+import Client from './client.js'
 
 export default class Transaction extends BaseModel {
   @column({ isPrimary: true })
   declare id: string
 
-  @column()
+  @column({ columnName: 'client_id' })
   declare clientId: string
 
-  @column()
+  @column({ columnName: 'gateway_id' })
   declare gatewayId: string
 
-  @column()
+  @column({ columnName: 'external_id' })
   declare externalId: string | null
 
   @column()
-  declare status: 'pending' | 'approved' | 'failed' | 'refunded'
+  declare status: 'approved' | 'refunded'
 
   @column()
   declare amount: number
 
-  @column()
+  @column({ columnName: 'card_last_numbers' })
   declare cardLastNumbers: string | null
 
   @column.dateTime({ autoCreate: true })
@@ -36,7 +36,9 @@ export default class Transaction extends BaseModel {
 
   @beforeCreate()
   public static assignUuid(transaction: Transaction) {
-    transaction.id = uuidv4()
+    if (!transaction.id) {
+      transaction.id = uuidv4()
+    }
   }
 
   @belongsTo(() => Client)

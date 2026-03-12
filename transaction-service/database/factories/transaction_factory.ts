@@ -1,4 +1,4 @@
-import Transaction from '#models/transactions'
+import Transaction from '#models/transaction'
 import factory from '@adonisjs/lucid/factories'
 import { ClientFactory } from './client_factory.ts'
 import { GatewayFactory } from './gateway_factory.ts'

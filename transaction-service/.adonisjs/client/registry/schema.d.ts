@@ -179,12 +179,12 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/api/v1/gateways'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/gateway').gatewayValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/gateway').gatewayValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/gateway_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/gateway_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/gateway_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'gateways.show': {
@@ -319,6 +319,18 @@ export interface Registry {
       errorResponse: unknown
     }
   }
+  'transaction.store': {
+    methods: ["POST"]
+    pattern: '/api/v1/transactions'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['store']>>>
+    }
+  }
   'transactions.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/transactions'
@@ -327,20 +339,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
-    }
-  }
-  'transactions.store': {
-    methods: ["POST"]
-    pattern: '/api/v1/transactions'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['index']>>>
     }
   }
   'transactions.show': {
@@ -351,8 +351,8 @@ export interface Registry {
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['show']>>>
     }
   }
   'transactions.update': {
@@ -363,8 +363,8 @@ export interface Registry {
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['update']>>>
     }
   }
   'transactions.destroy': {
@@ -375,8 +375,8 @@ export interface Registry {
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['destroy']>>>
     }
   }
 }

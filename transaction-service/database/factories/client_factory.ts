@@ -1,4 +1,4 @@
-import Client from '#models/clients'
+import Client from '#models/client'
 import factory from '@adonisjs/lucid/factories'
 
 export const ClientFactory = factory

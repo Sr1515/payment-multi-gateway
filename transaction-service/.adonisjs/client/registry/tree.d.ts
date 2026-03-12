@@ -40,9 +40,11 @@ export interface ApiDefinition {
     update: typeof routes['clients.update']
     destroy: typeof routes['clients.destroy']
   }
+  transaction: {
+    store: typeof routes['transaction.store']
+  }
   transactions: {
     index: typeof routes['transactions.index']
-    store: typeof routes['transactions.store']
     show: typeof routes['transactions.show']
     update: typeof routes['transactions.update']
     destroy: typeof routes['transactions.destroy']

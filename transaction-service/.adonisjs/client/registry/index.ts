@@ -162,17 +162,17 @@ const routes = {
     tokens: [{"old":"/api/v1/clients/:id","type":0,"val":"api","end":""},{"old":"/api/v1/clients/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/clients/:id","type":0,"val":"clients","end":""},{"old":"/api/v1/clients/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['clients.destroy']['types'],
   },
+  'transaction.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/transactions',
+    tokens: [{"old":"/api/v1/transactions","type":0,"val":"api","end":""},{"old":"/api/v1/transactions","type":0,"val":"v1","end":""},{"old":"/api/v1/transactions","type":0,"val":"transactions","end":""}],
+    types: placeholder as Registry['transaction.store']['types'],
+  },
   'transactions.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/transactions',
     tokens: [{"old":"/api/v1/transactions","type":0,"val":"api","end":""},{"old":"/api/v1/transactions","type":0,"val":"v1","end":""},{"old":"/api/v1/transactions","type":0,"val":"transactions","end":""}],
     types: placeholder as Registry['transactions.index']['types'],
-  },
-  'transactions.store': {
-    methods: ["POST"],
-    pattern: '/api/v1/transactions',
-    tokens: [{"old":"/api/v1/transactions","type":0,"val":"api","end":""},{"old":"/api/v1/transactions","type":0,"val":"v1","end":""},{"old":"/api/v1/transactions","type":0,"val":"transactions","end":""}],
-    types: placeholder as Registry['transactions.store']['types'],
   },
   'transactions.show': {
     methods: ["GET","HEAD"],
