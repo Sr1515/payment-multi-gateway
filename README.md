@@ -7,16 +7,6 @@ integrado**.
 
 ---
 
-# 📋 Requisitos
-
-Antes de começar, você precisará ter instalado em sua máquina:
-
-- Docker e Docker Compose (Recomendado para ambiente completo)
-- Node.js (v20.x ou superior, caso queira rodar localmente)
-- Gerenciador de pacotes (npm ou pnpm)
-
----
-
 # 📂 Estrutura do Projeto
 
 ```bash
