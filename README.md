@@ -50,9 +50,18 @@ cd payment-multi-gateway
 
 ## 2️⃣ Configurar variáveis de ambiente
 
-Crie os arquivos:
+Crie o arquivo na raiz do projeto:
 
     .env
+
+Baseados nos arquivos:
+
+    .env.example
+
+---
+
+Crie os arquivos na pasta /transaction-service:
+
     transaction-service/.env
     transaction-service/.env.test
 
