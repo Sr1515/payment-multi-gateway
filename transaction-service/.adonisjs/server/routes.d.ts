@@ -36,6 +36,7 @@ export type ScannedRoutes = {
     'transactions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'transactions.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'transactions.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transaction.client_purchases': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   POST: {
     'new_account.store': { paramsTuple?: []; params?: {} }
@@ -59,6 +60,7 @@ export type ScannedRoutes = {
     'clients.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'transactions.index': { paramsTuple?: []; params?: {} }
     'transactions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transaction.client_purchases': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   HEAD: {
     'products.index': { paramsTuple?: []; params?: {} }
@@ -71,6 +73,7 @@ export type ScannedRoutes = {
     'clients.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'transactions.index': { paramsTuple?: []; params?: {} }
     'transactions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transaction.client_purchases': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PUT: {
     'products.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

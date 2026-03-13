@@ -84,7 +84,11 @@ router
           .resource('transactions', TransactionController)
           .apiOnly()
           .except(['store'])
-          .use('*', middleware.role({ roles: ['ADMIN', 'FINANCE'] }))
+          .use('*', middleware.role({ roles: ['ADMIN', 'MANAGER', 'FINANCE'] }))
+
+        router
+          .get('clients/:id/purchases', [TransactionController, 'clientPurchases'])
+          .use(middleware.role({ roles: ['ADMIN', 'MANAGER', 'FINANCE'] }))
       })
       .use(middleware.auth())
   })

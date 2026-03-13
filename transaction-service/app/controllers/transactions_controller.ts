@@ -6,12 +6,25 @@ import Client from '#models/client'
 import { uuidValidator } from '#validators/uuid'
 export default class TransactionController {
   async index() {
-    return await Transaction.all()
+    return await Transaction.query()
+      .preload('client')
+      .preload('gateway')
+      .preload('products', (query) => {
+        query.pivotColumns(['quantity'])
+      })
   }
 
   async show({ params }: HttpContext) {
     const { id } = await uuidValidator.validate(params)
-    return await Transaction.findOrFail(id)
+
+    return await Transaction.query()
+      .where('id', id)
+      .preload('client')
+      .preload('gateway')
+      .preload('products', (query) => {
+        query.pivotColumns(['quantity'])
+      })
+      .firstOrFail()
   }
 
   async store({ request, response }: HttpContext) {
@@ -141,5 +154,21 @@ export default class TransactionController {
         error: error.message,
       })
     }
+  }
+
+  async clientPurchases({ params }: HttpContext) {
+    const { id } = await uuidValidator.validate(params)
+
+    const client = await Client.query()
+      .where('id', id)
+      .preload('transactions', (query) => {
+        query.preload('gateway')
+        query.preload('products', (productQuery) => {
+          productQuery.pivotColumns(['quantity'])
+        })
+      })
+      .firstOrFail()
+
+    return client
   }
 }

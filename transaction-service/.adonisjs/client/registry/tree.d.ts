@@ -43,6 +43,7 @@ export interface ApiDefinition {
   transaction: {
     store: typeof routes['transaction.store']
     reembolso: typeof routes['transaction.reembolso']
+    clientPurchases: typeof routes['transaction.client_purchases']
   }
   transactions: {
     index: typeof routes['transactions.index']

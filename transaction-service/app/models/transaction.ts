@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
 import { BaseModel, column, belongsTo, manyToMany, beforeCreate } from '@adonisjs/lucid/orm'
 import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
-import Product from './product.js' // Dica: use .js em vez de .ts nos imports internos
+import Product from './product.js'
 import Gateway from './gateway.js'
 import Client from './client.js'
 

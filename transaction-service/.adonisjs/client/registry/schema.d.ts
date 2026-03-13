@@ -391,4 +391,16 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['destroy']>>>
     }
   }
+  'transaction.client_purchases': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/clients/:id/purchases'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/uuid').uuidValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['clientPurchases']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['clientPurchases']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }
