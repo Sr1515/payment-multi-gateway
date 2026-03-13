@@ -75,6 +75,10 @@ router
     router.post('/transactions', [TransactionController, 'store'])
 
     router
+      .post('transactions/reembolso', [TransactionController, 'reembolso'])
+      .use(middleware.role({ roles: ['ADMIN', 'FINANCE'] }))
+
+    router
       .group(() => {
         router
           .resource('transactions', TransactionController)

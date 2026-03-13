@@ -168,6 +168,12 @@ const routes = {
     tokens: [{"old":"/api/v1/transactions","type":0,"val":"api","end":""},{"old":"/api/v1/transactions","type":0,"val":"v1","end":""},{"old":"/api/v1/transactions","type":0,"val":"transactions","end":""}],
     types: placeholder as Registry['transaction.store']['types'],
   },
+  'transaction.reembolso': {
+    methods: ["POST"],
+    pattern: '/api/v1/transactions/reembolso',
+    tokens: [{"old":"/api/v1/transactions/reembolso","type":0,"val":"api","end":""},{"old":"/api/v1/transactions/reembolso","type":0,"val":"v1","end":""},{"old":"/api/v1/transactions/reembolso","type":0,"val":"transactions","end":""},{"old":"/api/v1/transactions/reembolso","type":0,"val":"reembolso","end":""}],
+    types: placeholder as Registry['transaction.reembolso']['types'],
+  },
   'transactions.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/transactions',

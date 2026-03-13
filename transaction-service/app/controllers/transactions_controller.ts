@@ -85,4 +85,61 @@ export default class TransactionController {
 
     return response.badRequest({ message: 'All gateways failed' })
   }
+
+  async reembolso({ request, response }: HttpContext) {
+    const transactionId = request.input('id')
+
+    if (!transactionId) {
+      return response.badRequest({ message: 'Transaction ID is required in body' })
+    }
+
+    try {
+      await uuidValidator.validate({ id: transactionId })
+
+      const transaction = await Transaction.query()
+        .where('id', transactionId)
+        .preload('gateway')
+        .first()
+
+      if (!transaction) {
+        return response.notFound({ message: 'Transaction not found' })
+      }
+
+      if (transaction.status === 'refunded') {
+        return response.badRequest({ message: 'Transaction already refunded' })
+      }
+
+      const gateways = await GatewayFactory.getGateways()
+      const gatewayData = gateways.find((g) => g.config.id === transaction.gatewayId)
+
+      if (!gatewayData) {
+        return response.unprocessableEntity({
+          message: 'The gateway used for this transaction is no longer available',
+        })
+      }
+
+      const gatewayInstance = gatewayData.instance
+
+      if (!transaction.externalId) {
+        return response.unprocessableEntity({ message: 'Transaction has no external reference' })
+      }
+
+      await gatewayInstance.refund(transaction.externalId)
+
+      transaction.status = 'refunded'
+      await transaction.save()
+
+      return response.ok({
+        message: 'Refund successful',
+        transaction_id: transaction.id,
+        status: transaction.status,
+      })
+    } catch (error) {
+      console.error('Refund Error:', error.message)
+      return response.internalServerError({
+        message: 'Error processing refund',
+        error: error.message,
+      })
+    }
+  }
 }

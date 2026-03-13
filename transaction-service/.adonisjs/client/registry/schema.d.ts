@@ -331,6 +331,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'transaction.reembolso': {
+    methods: ["POST"]
+    pattern: '/api/v1/transactions/reembolso'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/uuid').uuidValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/uuid').uuidValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['reembolso']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions_controller').default['reembolso']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'transactions.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/transactions'
