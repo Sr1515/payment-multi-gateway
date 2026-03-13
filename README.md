@@ -17,21 +17,6 @@ Antes de começar, você precisará ter instalado em sua máquina:
 
 ---
 
-# 🧰 Stack Tecnológica
-
-Tecnologia Uso
-
----
-
-**AdonisJS v6** Framework principal da API
-**Node.js 20+** Runtime
-**MySQL** Banco de dados
-**Docker / Docker Compose** Ambiente containerizado
-**Japa** Testes automatizados
-**Makefile** Automação de comandos
-
----
-
 # 📂 Estrutura do Projeto
 
 ```bash
