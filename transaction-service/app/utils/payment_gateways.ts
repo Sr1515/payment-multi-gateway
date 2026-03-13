@@ -5,15 +5,15 @@ import env from '#start/env'
 export class PaymentGatewayA implements PaymentGateway {
   name = 'GatewayA'
 
-  private baseUrl = env.get('GATEWAY_A', 'http://localhost:3001')
+  private baseUrl = env.get('GATEWAY_A_URL', 'http://localhost:3001')
   private token: string | null = null
 
   private async authenticate() {
     if (this.token) return this.token
 
     const response = await axios.post(`${this.baseUrl}/login`, {
-      email: 'dev@betalent.tech',
-      token: 'FEC9BB078BF338F464F96B48089EB498',
+      email: env.get('GATEWAY_A_EMAIL', ''),
+      token: env.get('GATEWAY_A_TOKEN', ''),
     })
 
     this.token = response.data.token
@@ -62,11 +62,11 @@ export class PaymentGatewayA implements PaymentGateway {
 export class PaymentGatewayB implements PaymentGateway {
   name = 'GatewayB'
 
-  private baseUrl = env.get('GATEWAY_B', 'http://localhost:3002')
+  private baseUrl = env.get('GATEWAY_B_URL', 'http://localhost:3002')
 
   private headers = {
-    'Gateway-Auth-Token': 'tk_f2198cc671b5289fa856',
-    'Gateway-Auth-Secret': '3d15e8ed6131446ea7e3456728b1211f',
+    'Gateway-Auth-Token': env.get('GATEWAY_B_AUTH_TOKEN', ''),
+    'Gateway-Auth-Secret': env.get('GATEWAY_B_AUTH_SECRET', ''),
   }
 
   async processPayment(data: ExternalPaymentRequestDTO): Promise<any> {
