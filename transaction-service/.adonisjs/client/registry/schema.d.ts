@@ -83,10 +83,10 @@ export interface Registry {
     methods: ["PUT","PATCH"]
     pattern: '/api/v1/products/:id'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/product').createProductValidator)>|InferInput<(typeof import('#validators/uuid').uuidValidator)>>
+      body: ExtractBody<InferInput<(typeof import('#validators/product').updateProductValidator)>|InferInput<(typeof import('#validators/uuid').uuidValidator)>>
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/product').createProductValidator)>|InferInput<(typeof import('#validators/uuid').uuidValidator)>>
+      query: ExtractQuery<InferInput<(typeof import('#validators/product').updateProductValidator)>|InferInput<(typeof import('#validators/uuid').uuidValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/products_controller').default['update']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/products_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
@@ -143,10 +143,10 @@ export interface Registry {
     methods: ["PUT","PATCH"]
     pattern: '/api/v1/users/:id'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/user').signupValidator)>|InferInput<(typeof import('#validators/uuid').uuidValidator)>>
+      body: ExtractBody<InferInput<(typeof import('#validators/user').updateUserValidator)>|InferInput<(typeof import('#validators/uuid').uuidValidator)>>
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/user').signupValidator)>|InferInput<(typeof import('#validators/uuid').uuidValidator)>>
+      query: ExtractQuery<InferInput<(typeof import('#validators/user').updateUserValidator)>|InferInput<(typeof import('#validators/uuid').uuidValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/users_controller').default['update']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/users_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
